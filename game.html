@@ -16,6 +16,9 @@
        <div id="player" aria-hidden="false">
         <img id="player-sprite" src="./character/stand_r.gif" alt="player" />
        </div>
+       <div id="floor">
+        <img src="./img/platform-1.png">
+       </div>
     </div>
   </body>
 
@@ -40,6 +43,25 @@
         overlay.remove();
       }, { once: true });
     });
+
+    // Add this to your player.js or create a new script
+function adjustPlayerPosition() {
+  const floorImg = document.querySelector('#floor img');
+  const player = document.getElementById('player');
+  
+  if (floorImg && player) {
+    // Get the actual height of the floor image
+    const floorHeight = floorImg.offsetHeight;
+    
+    // Position player just above the floor
+    // Adjust the 20px offset as needed
+    player.style.bottom = (floorHeight + -8) + 'px';
+  }
+}
+
+// Adjust on load and whenever window resizes
+window.addEventListener('load', adjustPlayerPosition);
+window.addEventListener('resize', adjustPlayerPosition);
   </script>
 </html>
 <!-- ...existing code... -->

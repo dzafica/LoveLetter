@@ -1,0 +1,105 @@
+<!DOCTYPE html lang="en">
+<html>
+  <head>
+    <title>Love Letter</title>
+    <link rel="icon" href="img/icon_white_heart.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="css/start_style.css" />
+
+    <style>
+      #press_start {
+        animation: fadeBlink 1.5s ease-in-out infinite;
+      }
+
+      @keyframes fadeBlink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="center">
+      <button class="start-button">START</button>
+    </div> -->
+
+    <div class="center">
+      <audio src="sounds/click.mp3" id="click"></audio>
+      <p id="press_start">= Press the button to begin your journey =</p>
+      <button class="start-button" onClick="playMyAudio()"><img src="./img/button v1-1.png.png" alt="START"/></button>
+    </div>
+
+    <script>
+      // Animate the dots in the "Preparing..." text
+      function animateDots() {
+        const dots = document.getElementById("dots");
+        let count = 0;
+
+        setInterval(() => {
+          count = (count + 1) % 4; // cycles through 0,1,2,3
+          dots.textContent = ".".repeat(count); // "", ".", "..", "..."
+        }, 500); // change every half-second
+      }
+
+      const button = document.querySelector(".start-button");
+      const startImg = button.querySelector("img");
+      const regularSrc = startImg.src;
+      const pressedSrc = "./img/button v1-2.png.png"; // Update this path to your press-image file
+
+      function setButtonPressed() {
+        startImg.src = pressedSrc;
+        button.classList.add("active");
+      }
+
+      function setButtonNormal() {
+        startImg.src = regularSrc;
+        button.classList.remove("active");
+      }
+
+      button.addEventListener("mousedown", setButtonPressed);
+      button.addEventListener("touchstart", setButtonPressed);
+      document.addEventListener("mouseup", setButtonNormal);
+      document.addEventListener("touchend", setButtonNormal);
+      button.addEventListener("mouseleave", setButtonNormal);
+
+      function playMyAudio() {
+        const clickSound = document.getElementById("click");
+        const fadeOverlay = document.getElementById("fade-overlay");
+
+        // Play sound
+        clickSound.currentTime = 0;
+        clickSound.play();
+
+        // Press animation
+        button.classList.add("active");
+        setTimeout(() => {
+          button.classList.remove("active");
+        }, 150);
+
+        // Start fade to black
+        setTimeout(() => {
+          fadeOverlay.classList.add("active");
+        }, 200);
+
+        // Show "Preparing..." and start dots animation
+        setTimeout(() => {
+          fadeOverlay.classList.add("show-text");
+          animateDots(); // start the dot animation
+        }, 1800);
+
+        // Optional redirect after animation
+        setTimeout(() => (window.location.href = "game.html"), 10000);
+      }
+    </script>
+
+    <!-- Fade overlay + text -->
+    <div id="fade-overlay">
+      <div id="preparing-text">Preparing<span id="dots"></span></div>
+    </div>
+  </body>
+  <script src="./js/mouse.js"></script>
+  <img id="sparkles-cr" src="./img/sparkles.png" alt="" />
+</html>
