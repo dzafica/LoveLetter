@@ -1,0 +1,45 @@
+<!-- ...existing code... -->
+<!DOCTYPE html lang="en">
+<html>
+  <head>
+    <title>Love Letter</title>
+    <link rel="icon" href="img/icon_white_heart.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="css/start_style.css" />
+  </head>
+  <body>
+    <!-- Fade-in overlay: starts black, will fade out to reveal the game -->
+    <div id="game-fade" class="visible"></div>
+
+    <!-- Your game content goes here -->
+    <div id="game-root">
+      <!-- player -->
+       <div id="player" aria-hidden="false">
+        <img id="player-sprite" src="./character/stand_r.gif" alt="player" />
+       </div>
+    </div>
+  </body>
+
+  <script src="./js/mouse.js"></script>
+  <script src="./js/player.js"></script>
+  <img id="sparkles-cr" src="./img/sparkles.png" alt=""/>
+  <script>
+    // Simple fade-out on page load: remove overlay after a short delay so the browser paints it.
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('game-fade');
+      if (!overlay) return;
+
+      // Give the browser a tick to ensure the black overlay is rendered,
+      // then trigger the fade by adding the fade-out class.
+      requestAnimationFrame(() => {
+        // small timeout so transition is visible on fast loads
+        setTimeout(() => overlay.classList.add('fade-out'), 50);
+      });
+
+      // remove overlay from DOM after transition to avoid intercepting clicks
+      overlay.addEventListener('transitionend', () => {
+        overlay.remove();
+      }, { once: true });
+    });
+  </script>
+</html>
+<!-- ...existing code... -->

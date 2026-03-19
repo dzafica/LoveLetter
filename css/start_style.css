@@ -1,0 +1,157 @@
+/*start_style.css is a file that makes start.html look pretty*/
+/*Default things you set in your css file :)*/
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url(../img/bg.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.center {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  justify-content: center; /* center vertically */
+  align-items: center; /* center horizontally */
+  gap: 30px; /* 30px space between items */
+  height: 100vh;
+  padding: 0 16px; /* optional: avoid touching screen edges on small viewports */
+  box-sizing: border-box;
+}
+
+.start-button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.start-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#sparkles-cr {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 30px;
+  width: 30px;
+}
+
+#press_start {
+  text-align: center;
+  font-size: 40px;
+  font-family: pixels;
+  color: #783838;
+  margin: 0;
+}
+
+/* Fade overlay that covers the whole screen */
+#fade-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Preparing text */
+#preparing-text {
+  color: white;
+  font-family: pixels;
+  font-size: 60px;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+#dots {
+  display: inline-block;
+  width: 2ch; /* reserves space so text doesn't "jump" */
+  text-align: left;
+}
+
+/* When we activate the fade */
+#fade-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* When text should show up */
+#fade-overlay.show-text #preparing-text {
+  opacity: 1;
+}
+
+/*here is game.html style*/
+
+/* Add these rules for the game start fade-in */
+#game-fade {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: #000;
+  z-index: 2000;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 1.6s ease;
+}
+
+/* When we want to "unfade" the game, make overlay transparent and non-blocking */
+#game-fade.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* optional: ensure game-root sits under overlay */
+#game-root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ...existing code ... */
+
+/* game root and player */
+#game-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 130px;              /* distance above bottom, tweak as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  will-change: transform, left;
+  pointer-events: none;
+  width: 80px;               /* visual size of sprite */
+  height: auto;
+}
+
+#player-sprite {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  image-rendering: pixelated; /* for pixel-art sprites */
+}
+
+/* flip when facing left */
+#player.facing-left #player-sprite {
+  transform: scaleX(-1);
+}
+
+/*this is how you add your custom font*/
+@font-face {
+  font-family: pixels;
+  src: url(../fonts/PixelPurl.ttf);
+}
